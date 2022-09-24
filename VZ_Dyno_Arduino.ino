@@ -61,27 +61,27 @@ void setup() {
   lcd.print("VZ Dyno");
 
   start_time = millis();
-   bmp.begin();
+  bmp.begin();
 } //end Setup
 
 void loop() {
 
-  /*if(flag_encoder_main_front == true)
+  if(flag_encoder_main_front == true)
   {
-      total_4 = (ovrcnt_icp4*65536) + ICR4;
-      flag_encoder_main_front = false;
+    /**  
+     *   This part of code has been tested 
+     *   individually & also with this code
+     */
+    total_4 = (ovrcnt_icp4*65536) + ICR4;
+    flag_encoder_main_front = false;
 
-      cur_input_capture = total_4;
-      diff_input_capture = cur_input_capture - pre_input_capture;
-      pre_input_capture = cur_input_capture; 
+    cur_input_capture = total_4;
+    diff_input_capture = cur_input_capture - pre_input_capture;
+    pre_input_capture = cur_input_capture; 
 
-      sensor1 = diff_input_capture;
-      //Serial.println(sensor1);
-     
-      //sensor1 = 327678;
-      //Serial.println(sensor1);
-      //Serial.print((String) sensor1 + "A" + "\n");
-  }*/
+    sensor1 = diff_input_capture;
+    //Serial.println(sensor1);
+  }
 
 
   //  Update the sensors every 5 seconds
@@ -331,28 +331,27 @@ void loop() {
   }//End Serial Data In
 
 
-  /*
-   * Function Calling & Decision Making based on FLAG
-   * ------------------------------------------------
-   */
-//  Serial.println("Looping");
+/*
+ * Function Calling & Decision Making based on FLAG
+ * ------------------------------------------------
+ */
   if(FLAG.RUN_dyno == 1)
   {
-//    if (Serial1.available() > 0) 
-//    {
-//      //uint32_t rlen = Serial1.readBytesUntil('\n', buf, BUFFER_SIZE);
-//      uint32_t data_in = Serial1.parseInt(); 
-//      //Serial.println("I received: ");
-//
-//      //int x = atoi(buf);
-//      //Serial.print("I received: ");
-//      //Serial.print(data_in);
-//      
-//      //sensor1 = data_in;
-//
-//      sensor1 = map(data_in, 196443, 1048642, 0, 1023 );   //Calcuates the POT value back 
-//      //uint32_t voltage= sensor1 * (5.0 / 1023.0);  //Converting to Voltage
-//    }
+    if (Serial1.available() > 0) 
+    {
+      //uint32_t rlen = Serial1.readBytesUntil('\n', buf, BUFFER_SIZE);
+      uint32_t data_in = Serial1.parseInt(); 
+      //Serial.println("I received: ");
+
+      //int x = atoi(buf);
+      //Serial.print("I received: ");
+      //Serial.print(data_in);
+      
+      //sensor1 = data_in;
+
+      sensor1 = map(data_in, 196443, 1048642, 0, 1023 );   //Calcuates the POT value back 
+      //uint32_t voltage= sensor1 * (5.0 / 1023.0);  //Converting to Voltage
+    }
     
     sample_data_simulate(); //This function sends the sample data only
     

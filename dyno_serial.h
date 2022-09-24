@@ -188,7 +188,8 @@ void show_sensor_data()
 {
   // Just Send the Sensor variables to GUI//sample_data_sensors
   static int i = 0; 
-  sensor1 = sample_data_sensors[i];
+//  sensor1 = sample_data_sensors[i];  
+//Sensor 1 already being updated by the main code (dT coming from Encoder)
   sensor2 = SENSOR.temperature_BMP;
   sensor3 = SENSOR.pressure_BMP;
   sensor4 = 220;
@@ -199,7 +200,7 @@ void show_sensor_data()
   sensor9 = sample_data_sensors[i];
   sensor10 = sample_data_sensors[i];
   Send_To_GUI();
-  delay(100);
+  delay(10);
   i++;
   if(i >4) i=0;
   
