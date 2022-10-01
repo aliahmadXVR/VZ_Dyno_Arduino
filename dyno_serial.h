@@ -52,6 +52,7 @@ struct Dyno_flag
 {
   //bool DYNO_INIT;
   bool RUN_dyno;
+  bool RUN_sample;
   bool SHOW_sensor;
   bool ADJ_wheelBase;
   bool ADJ_wheelBaseR;

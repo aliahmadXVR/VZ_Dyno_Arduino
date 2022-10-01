@@ -147,6 +147,26 @@ void loop() {
       break;
     };
 
+    //This case enables the sample data to start coming from
+    //arduino
+    case Dyno_sample_msg:
+    {
+      //lcd.clear();
+      lcd.home();
+      lcd.print("Dyno Sample");
+      appendSerialData=""; 
+      Serial_data_IN=0;
+      FLAG.RUN_sample = 1; //Enables the Sample data coming from GUI
+      FLAG.RUN_dyno =0; //Disable the Dyno Serial
+      FLAG.SHOW_sensor = 0; //Disable sensor data sending function
+      FLAG.ADJ_wheelBase = 0; //Disable wheel base adjustment fucntion
+      FLAG.DYNO_Config=0;
+      FLAG.DYNO_Brake=0;
+      FLAG.DYNO_LOCKPIN_en=0;
+      FLAG.DYNO_LOCKPIN_dis=0;
+      break;
+    }
+
     case Sensor_data_show_msg:
     {
       lcd.clear();
@@ -337,29 +357,19 @@ void loop() {
  */
   if(FLAG.RUN_dyno == 1)
   {
-    if (Serial1.available() > 0) 
-    {
-      //uint32_t rlen = Serial1.readBytesUntil('\n', buf, BUFFER_SIZE);
-      uint32_t data_in = Serial1.parseInt(); 
-      //Serial.println("I received: ");
-
-      //int x = atoi(buf);
-      //Serial.print("I received: ");
-      //Serial.print(data_in);
-      
-      //sensor1 = data_in;
-
-      sensor1 = map(data_in, 196443, 1048642, 0, 1023 );   //Calcuates the POT value back 
-      //uint32_t voltage= sensor1 * (5.0 / 1023.0);  //Converting to Voltage
-    }
-    
-    sample_data_simulate(); //This function sends the sample data only
+    Send_To_GUI(); //This function sends data from sensor 1 till sensor 10 on the serial port
+    //sample_data_simulate(); //This function sends the sample data only
     
   }
 
   if (FLAG.RUN_dyno == 0)
   {
     //dont call any function for now.
+  }
+
+  if (FLAG.RUN_sample == 1)
+  {
+     sample_data_simulate(); //This function sends the sample data only
   }
   
   if (FLAG.SHOW_sensor == 1)
